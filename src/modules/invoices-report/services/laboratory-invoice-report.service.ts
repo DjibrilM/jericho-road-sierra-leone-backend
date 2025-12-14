@@ -125,20 +125,4 @@ export class LaboratoryInvoicesReportService {
       return sum + invoiceTotal;
     }, 0);
   }
-
-  async onModuleInit() {
-    let calculator = 0;
-    const invoices = await this.invoiceModel.find().populate('patientId');
-
-    await Promise.all(
-      invoices.map(async (invoice: any) => {
-        setTimeout(async () => {
-          await this.invoiceModel.findByIdAndUpdate(invoice._id, {
-            invoicePatientType: invoice.patientId?.patientType,
-          });
-          calculator += 1;
-        }, 50);
-      }),
-    );
-  }
 }

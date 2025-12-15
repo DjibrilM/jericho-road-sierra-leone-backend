@@ -14,7 +14,11 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
   app.use(helmet());
-  app.enableCors({ ...corsConfig });
+  app.enableCors({
+    origin: true,
+    credentials: true,
+    methods: 'GET,POST,PUT,PATCH,DELETE',
+  });
   console.log(process.env.PORT);
   app.useWebSocketAdapter(new WsAdapter(app));
   await app.listen(process.env.PORT || 3001);

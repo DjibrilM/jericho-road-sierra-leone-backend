@@ -2,6 +2,7 @@ import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.int
 export const environment = process.env.ENVIRONMENT as 'development' | 'production';
 
 const allowedOrigins = [
+  '*',
   'https://jericho-road-road-web.vercel.app',
   'https://presence-tracking-app.vercel.app',
   environment === 'development' && 'http://localhost:5173',

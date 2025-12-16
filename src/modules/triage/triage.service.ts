@@ -29,7 +29,6 @@ export class TriageService {
   async createTriage(createTriageDto: CreateTriageDto): Promise<Triage> {
     try {
       const createdTriage = await this.triageModel.create(createTriageDto);
-      const patient = this.patienSchema.findById(createTriageDto.patientId);
 
       if (createTriageDto.aptitudePhysique) {
         await this.aptitudePhysiqueModel.create({

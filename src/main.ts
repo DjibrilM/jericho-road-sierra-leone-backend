@@ -24,9 +24,7 @@ async function bootstrap() {
   await app.listen(process.env.PORT || 3001);
 
   log.log(`application started at  ${process.env.URL}`);
-  log.log(
-    `database connected successfully: ${environment === 'production' ? process.env.DB_URI : 'mongodb://localhost:27017/medicenter_local'}`,
-  );
+  log.log(`database connected successfully: ${process.env.DB_URI}`);
 }
 
 bootstrap();

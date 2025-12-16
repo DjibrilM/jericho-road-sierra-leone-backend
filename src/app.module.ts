@@ -23,7 +23,8 @@ import { PresenceTrackingModule } from './modules/presence-tracking/presence-tra
 import { MaternityRecordsModule } from './modules/maternity-records/maternity-records.module';
 import { PharmacyStoreModule } from './modules/pharmacy-store/items/pharmacy-store.module';
 import { InvoicesReportModule } from './modules/invoices-report/invoices-report.module';
-
+import { TriagePediatricModule } from './modules/triage-pediatric/triage-pediatric.module';
+import { TriageAdultModule } from './modules/triage-adults/triage-adults.module';
 
 config();
 
@@ -49,6 +50,8 @@ config();
     MaternityRecordsModule,
     PharmacyStoreModule,
     InvoicesReportModule,
+    TriagePediatricModule,
+    TriageAdultModule,
   ],
   exports: [CaseModule, UserModule],
   controllers: [AppController],

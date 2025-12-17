@@ -9,6 +9,7 @@ import {
   Request,
   Query,
   Res,
+  Req,
 } from '@nestjs/common';
 import { Response } from 'express';
 
@@ -26,6 +27,11 @@ import { CreatePayementUserExtend } from './ineterfaces';
 import { AdminCheck } from 'src/middlewares/admin.guard';
 import { UpdateMedicalRecordDto } from './medical-record.dto';
 import { SearchByName } from '../patients/patient.dto';
+import { AuthRequestPayload } from 'src/util/types';
+
+// @Req() request: AuthRequestPayload,
+// ) {
+//   data.senderId = request.user.id;
 
 @Controller('medical-record')
 export class MedicalRecordController {
@@ -33,7 +39,11 @@ export class MedicalRecordController {
 
   @UseGuards(AuthGuard)
   @Post('create')
-  createMedicalRecord(@Body() body: CreateMedicalRecordDto) {
+  createMedicalRecord(
+    @Body() body: CreateMedicalRecordDto,
+    @Req() request: AuthRequestPayload,
+  ) {
+    body.doctorId = request.user.id as any;
     return this.medicalRecordService.createRecord(body);
   }
 
@@ -209,5 +219,3 @@ export class MedicalRecordController {
     );
   }
 }
-
-

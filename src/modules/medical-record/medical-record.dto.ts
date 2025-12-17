@@ -5,7 +5,6 @@ export class CreateMedicalRecordDto {
   @IsNotEmpty()
   patientId: mongoose.Schema.Types.ObjectId;
 
-  @IsNotEmpty()
   doctorId: mongoose.Schema.Types.ObjectId;
 
   @IsNotEmpty()
@@ -47,7 +46,7 @@ export class CreateMedicalRecordDto {
   etatGeneral: string;
 
   @IsNotEmpty()
-  complémentdanamnèse:string
+  complémentdanamnèse: string;
 }
 
 export class CreateTriageDto {

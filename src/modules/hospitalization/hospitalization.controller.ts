@@ -12,6 +12,8 @@ import {
 import {
   createDailySurverDto,
   CreateHospitalizationRecommdationDto,
+  UpdateHospitalizationDepositHistoryDto,
+  UpdateHospitalizationPackageAmount,
 } from './hospitalization.dto';
 import { CreateHopitalizationRecord } from './hospitalization.dto';
 import { HospitalizationService } from './hospitalization.service';
@@ -20,7 +22,6 @@ import { CreateHospitalizationRecordPayamentDto } from './hospitalization.dto';
 import { SearchByName } from '../patients/patient.dto';
 import { hopsitalizationEmergencyRequest } from 'src/util/types';
 import { AuthRequestPayload } from 'src/util/types';
-
 
 @Controller('hospitalization')
 @UseGuards(AuthGuard)
@@ -271,6 +272,27 @@ export class HospitalizationController {
       },
     );
   }
+
+  @Post('update-deposit-history/:hospitalizationRecord')
+  async updateHospitalizationHistory(
+    @Body() body: UpdateHospitalizationDepositHistoryDto,
+    @Param('hospitalizationRecord') hospitalizationRecord: string,
+  ) {
+    return await this.hospitalizationPaymentServices.updateDepositHistory(
+      body,
+      hospitalizationRecord,
+    );
+  }
+
+  @Post('update-packageAmount/:hospitalizationRecord')
+  async updatePackageAmount(
+    @Body() body: UpdateHospitalizationPackageAmount,
+    @Param('hospitalizationRecord') hospitalizationRecord: string,
+  ) {
+    return await this.hospitalizationPaymentServices.updatePackageAmount(
+      body,
+      hospitalizationRecord,
+    );
+  }
 }
 export { AuthRequestPayload };
-

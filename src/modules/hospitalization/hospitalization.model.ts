@@ -89,6 +89,12 @@ export class HospitalizationRecordModel extends Document {
 
   @Prop({ default: 0 })
   deposit: number;
+
+  @Prop({ default: [] })
+  depositHistory: { createdAt: string; amount: number }[];
+
+  @Prop({ default: 0 })
+  packageAmount: number;
 }
 
 export const HospitalizationRecordSchema = SchemaFactory.createForClass(

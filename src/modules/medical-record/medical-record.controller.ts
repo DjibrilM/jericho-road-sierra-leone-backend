@@ -43,6 +43,7 @@ export class MedicalRecordController {
     @Body() body: CreateMedicalRecordDto,
     @Req() request: AuthRequestPayload,
   ) {
+    console.log(request.user);
     body.doctorId = request.user.id as any;
     return this.medicalRecordService.createRecord(body);
   }

@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, mongo } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 import { Patient } from 'src/modules/patients/patient.model';
 import { User } from '../users/user.model';
 import { HospitalizationRecordModel } from './hospitalization.model';

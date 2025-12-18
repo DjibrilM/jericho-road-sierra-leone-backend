@@ -36,6 +36,9 @@ export class HospitalizationPayementModel {
   @Prop()
   price: number;
 
+  @Prop({ default: 0 })
+  totalSpending: number;
+
   @Prop()
   patientType: string;
 }

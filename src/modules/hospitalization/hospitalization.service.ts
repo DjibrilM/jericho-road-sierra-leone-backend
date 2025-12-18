@@ -11,6 +11,8 @@ import {
   CreateHopitalizationRecord,
   CreateHospitalizationRecommdationDto,
   CreateHospitalizationRecordPayamentDto,
+  UpdateHospitalizationDepositHistoryDto,
+  UpdateHospitalizationPackageAmount,
   createDailySurverDto,
 } from './hospitalization.dto';
 
@@ -290,6 +292,11 @@ export class HospitalizationService {
   async createHospitalizationPayment(
     data: CreateHospitalizationRecordPayamentDto,
   ) {
+    const hospitalizationRecord =
+      await this.HospitalizationRecordModel.findById(
+        data.HospitalizationRecordId,
+      );
+
     const hospitaliationRecommandation = await this.recommandatioModal.findOne({
       hospitalizationRecord: data.HospitalizationRecordId,
     });
@@ -327,17 +334,18 @@ export class HospitalizationService {
 
     return await this.hospitalizationPayementModel.create({
       ...data,
-      price:
+      totalSpending:
         totalPrice +
         administratedEmergencyMedicinesTotalPrice +
         (hospitaliationRecommandation?.totalPrice || 0),
       patientType: patient.patientType || '',
+      price: hospitalizationRecord.packageAmount,
     });
   }
 
   private calaculateRecommandation(data: CreateHospitalizationRecommdationDto) {
     let recommandedMedicine = 0;
-    const promise = new Promise((resol, __) => {
+    const promise = new Promise((resolve) => {
       if (data.recommandedMedicine) {
         data.recommandedMedicine.forEach(async (element, index) => {
           const medicine = await this.medecinSchema.findById(
@@ -367,7 +375,7 @@ export class HospitalizationService {
           }
 
           if (index + 1 === data.recommandedMedicine.length) {
-            resol(recommandedMedicine);
+            resolve(recommandedMedicine);
           }
         });
       }
@@ -388,7 +396,7 @@ export class HospitalizationService {
         throw new ConflictException();
       }
 
-      let recommandedMedicineTotalPrice =
+      const recommandedMedicineTotalPrice =
         await this.calaculateRecommandation(data);
       const patient = new mongoose.Types.ObjectId(data.patient);
       const hospitalizationRecord = new mongoose.Types.ObjectId(
@@ -472,7 +480,6 @@ export class HospitalizationService {
   }
 
   async getPatientPayments(patientId: string) {
-    const constructId = new mongoose.Types.ObjectId(patientId);
     return this.hospitalizationPayementModel
       .find({ patientId })
       .populate('HospitalizationRecordId')
@@ -840,5 +847,39 @@ export class HospitalizationService {
     });
 
     return 'Record updated';
+  }
+
+  async updateDepositHistory(
+    data: UpdateHospitalizationDepositHistoryDto,
+    recordId: string,
+  ) {
+    const hospitalizationRecord =
+      await this.HospitalizationRecordModel.findById(recordId);
+
+    if (!hospitalizationRecord)
+      throw new NotFoundException('Hospitalization record not found');
+
+    hospitalizationRecord.depositHistory.push(data);
+
+    await hospitalizationRecord.save();
+  }
+
+  async updatePackageAmount(
+    data: UpdateHospitalizationPackageAmount,
+    recordId: string,
+  ) {
+    const hospitalizationRecord =
+      await this.HospitalizationRecordModel.findById(recordId);
+
+    if (!hospitalizationRecord)
+      throw new NotFoundException('Hospitalization record not found');
+
+    if (data.amount < hospitalizationRecord.packageAmount) {
+      throw new UnauthorizedException('Invalid amount');
+    }
+
+    hospitalizationRecord.packageAmount = data.amount;
+
+    await hospitalizationRecord.save();
   }
 }

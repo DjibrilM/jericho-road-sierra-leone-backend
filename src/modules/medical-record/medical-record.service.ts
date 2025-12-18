@@ -134,7 +134,7 @@ export class MedicalRecordService {
       find.doctorId as any,
     );
 
-    const update = await this.mdeicalRecordSchema.findOneAndUpdate(
+    await this.mdeicalRecordSchema.findOneAndUpdate(
       { _id: updateMedicalRecord.id },
       {
         priseEnCharge: updateMedicalRecord.priseEnCharge,

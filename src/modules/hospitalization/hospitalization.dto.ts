@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString, Min } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 import { Survery } from './dailyRecord.model';
 import { Prop } from '@nestjs/mongoose';
 
@@ -59,10 +59,7 @@ export class CreateHopitalizationRecord {
   @IsString()
   diagnosticDifferentiel: string;
 
-  @IsNotEmpty()
-  @IsNumber()
-  @Min(0)
-  deposit: number;
+  depositHistory: [];
 }
 
 export class createDailySurverDto {
@@ -103,7 +100,6 @@ export class CreateHospitalizationRecordPayamentDto {
   discount: number;
 }
 
-
 export class CreateHospitalizationRecommdationDto {
   @IsNotEmpty()
   patient: string;
@@ -133,4 +129,17 @@ export class CreateHospitalizationRecommdationDto {
     selectedDosage: { name: string; checked: boolean }[];
     id: '2024-07-09T09:59:42.263Z';
   }[];
+}
+
+export class UpdateHospitalizationDepositHistoryDto {
+  @IsNotEmpty()
+  amount: number;
+
+  @IsNotEmpty()
+  createdAt: string;
+}
+
+export class UpdateHospitalizationPackageAmount {
+  @IsNotEmpty()
+  amount: number;
 }

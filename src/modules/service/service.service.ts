@@ -74,6 +74,20 @@ export class HospitalServices {
     }
   }
 
+  async getSurgeryServices() {
+    try {
+      const services = await this.serviceSchema
+        .find({ type: 'surgery' })
+        .sort({ createdAt: -1 })
+        .exec();
+
+      console.log(services);
+      return services;
+    } catch (error) {
+      return new InternalServerErrorException('failed to load services');
+    }
+  }
+
   async getRadiographieServices() {
     try {
       const services = await this.serviceSchema
@@ -92,7 +106,7 @@ export class HospitalServices {
         .find({ type: { $in: ['echographie', 'radiographie', 'laboratory'] } })
         .sort({ createdAt: -1 })
         .exec();
-      
+
       return services;
     } catch (error) {
       return new InternalServerErrorException('failed to load services');

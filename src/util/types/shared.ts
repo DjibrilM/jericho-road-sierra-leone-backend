@@ -26,6 +26,13 @@ export type HospitalizationImgergencyMedicine = {
   updatedAt: string;
 };
 
+export type surgeryEmergencyRequest = {
+  createAt: string;
+  recordId: string;
+  medicines: HospitalizationImgergencyMedicine[];
+  patientId: string;
+};
+
 export type hopsitalizationEmergencyRequest = {
   createAt: string;
   recordId: string;

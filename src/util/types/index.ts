@@ -1,3 +1,2 @@
-export * from "./shared";
-
-
+// eslint-disable-next-line prettier/prettier
+export * from './shared';

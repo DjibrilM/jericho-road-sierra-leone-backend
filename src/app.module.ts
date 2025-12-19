@@ -25,6 +25,7 @@ import { PharmacyStoreModule } from './modules/pharmacy-store/items/pharmacy-sto
 import { InvoicesReportModule } from './modules/invoices-report/invoices-report.module';
 import { TriagePediatricModule } from './modules/triage-pediatric/triage-pediatric.module';
 import { TriageAdultModule } from './modules/triage-adults/triage-adults.module';
+import { SurgeryModule } from './modules/surgery/surgery.module';
 
 config();
 
@@ -52,6 +53,7 @@ config();
     InvoicesReportModule,
     TriagePediatricModule,
     TriageAdultModule,
+    SurgeryModule,
   ],
   exports: [CaseModule, UserModule],
   controllers: [AppController],

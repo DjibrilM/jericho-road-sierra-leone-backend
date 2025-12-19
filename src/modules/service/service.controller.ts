@@ -45,6 +45,11 @@ export class ServiceController {
     return await this.hospitalServices.getEchographyServices();
   }
 
+  @Get('surgery')
+  async getSurgeryServices() {
+    return await this.hospitalServices.getSurgeryServices();
+  }
+
   @Get('ambulatory-examination-services')
   async getAmbulatoryExaminationServices() {
     return await this.hospitalServices.getAmabulatoryExaminationServices();

@@ -20,12 +20,12 @@ import { HospitalizationModule } from './modules/hospitalization/hospitalization
 import { ScheduleModule } from '@nestjs/schedule';
 import { CaseModule } from './modules/cases/case.module';
 import { PresenceTrackingModule } from './modules/presence-tracking/presence-tracking.module';
-import { MaternityRecordsModule } from './modules/maternity-records/maternity-records.module';
 import { PharmacyStoreModule } from './modules/pharmacy-store/items/pharmacy-store.module';
 import { InvoicesReportModule } from './modules/invoices-report/invoices-report.module';
 import { TriagePediatricModule } from './modules/triage-pediatric/triage-pediatric.module';
 import { TriageAdultModule } from './modules/triage-adults/triage-adults.module';
 import { SurgeryModule } from './modules/surgery/surgery.module';
+import { MaternityModule } from './modules/maternity/maternity.module';
 
 config();
 
@@ -48,12 +48,12 @@ config();
     HospitalizationModule,
     CaseModule,
     PresenceTrackingModule,
-    MaternityRecordsModule,
     PharmacyStoreModule,
     InvoicesReportModule,
     TriagePediatricModule,
     TriageAdultModule,
     SurgeryModule,
+    MaternityModule,
   ],
   exports: [CaseModule, UserModule],
   controllers: [AppController],

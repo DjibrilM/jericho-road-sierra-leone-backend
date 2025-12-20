@@ -246,10 +246,9 @@ export class PharmacyService {
 
     const filter = origin ? { origin } : {};
 
-
     const medicines = await this.soldMedicineModel
       .find({
-         ...filter,
+        ...filter,
         createdAt: {
           $gte: startDate, // Greater than or equal to startDate
           $lt: endDate, // Less than endDate
@@ -257,9 +256,7 @@ export class PharmacyService {
       })
       .populate('from')
       .populate('patientId');
-    
-    console.log({medicines})
-    
-    return medicines
+
+    return medicines;
   }
 }

@@ -201,13 +201,16 @@ export class HospitalizationService {
       .sort({ createdAt: -1 });
   }
 
-  async markSurveyAsCompled({
-    id,
-    target,
-  }: {
-    target: 'eveningSurvery' | 'morningSurvery' | 'afternoonSurvery';
-    id: string;
-  }) {
+  async markSurveyAsCompled(
+    {
+      id,
+      target,
+    }: {
+      target: 'eveningSurvery' | 'morningSurvery' | 'afternoonSurvery';
+      id: string;
+    },
+    requestAuthor: string,
+  ) {
     const survey = await this.DailyHospitalizationRecord.findById(id);
 
     switch (target) {
@@ -224,6 +227,7 @@ export class HospitalizationService {
         });
 
         survey.morningSurvery.status = 'completed';
+        survey.morningSurvery.comepletedBy = requestAuthor;
         break;
       case 'eveningSurvery':
         survey['eveningSurvery'].medicine.forEach(async (medicine) => {
@@ -237,6 +241,7 @@ export class HospitalizationService {
           });
         });
         survey.eveningSurvery.status = 'completed';
+        survey.eveningSurvery.comepletedBy = requestAuthor;
         break;
       case 'afternoonSurvery':
         survey['afternoonSurvery'].medicine.forEach(async (medicine) => {
@@ -250,6 +255,7 @@ export class HospitalizationService {
           });
         });
         survey.afternoonSurvery.status = 'completed';
+        survey.afternoonSurvery.comepletedBy = requestAuthor;
         break;
       default:
         console.log('nothing passed');

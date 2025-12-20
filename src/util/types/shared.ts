@@ -33,6 +33,13 @@ export type surgeryEmergencyRequest = {
   patientId: string;
 };
 
+export type maternityEmergencyRequest = {
+  createAt: string;
+  recordId: string;
+  medicines: HospitalizationImgergencyMedicine[];
+  patientId: string;
+};
+ 
 export type hopsitalizationEmergencyRequest = {
   createAt: string;
   recordId: string;

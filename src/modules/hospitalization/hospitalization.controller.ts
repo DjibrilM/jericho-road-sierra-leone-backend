@@ -83,8 +83,12 @@ export class HospitalizationController {
       id: 'string';
       target: 'eveningSurvery' | 'morningSurvery' | 'afternoonSurvery';
     },
+    @Req() authPayload: AuthRequestPayload,
   ) {
-    return await this.hospitalizationPaymentServices.markSurveyAsCompled(data);
+    return await this.hospitalizationPaymentServices.markSurveyAsCompled(
+      data,
+      authPayload.user.id,
+    );
   }
 
   @Delete('deleteHopitalizationRecordSurvey/:id')
